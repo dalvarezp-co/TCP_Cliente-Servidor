@@ -32,7 +32,7 @@ public class Cliente {
             
             byte[] contents = new byte[100000];
             //Initialize the FileOutputStream to the output file's full path.
-            FileOutputStream fos = new FileOutputStream("D:\\Escritorio\100MB1.img");
+            FileOutputStream fos = new FileOutputStream("e:\\100MB1.img");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             InputStream is = sc.getInputStream();
             //No of bytes read in one read() call
