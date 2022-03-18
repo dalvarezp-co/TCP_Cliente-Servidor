@@ -31,10 +31,11 @@ public class Cliente {
             out.writeUTF("¡Hola mundo desde el cliente!");
           //Recibo el mensaje del servidor
             String mensaje = in.readUTF();
+            System.out.println(mensaje);
             
             byte[] contents = new byte[100000];
             //Initialize the FileOutputStream to the output file's full path.
-            FileOutputStream fos = new FileOutputStream("D:\\Escritorio\100MB1.img");
+            FileOutputStream fos = new FileOutputStream("D:\\Escritorio\100MB1.txt");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             InputStream is = sc.getInputStream();
             //No of bytes read in one read() call
@@ -44,10 +45,9 @@ public class Cliente {
             bos.flush();
  
             out.writeUTF("Se descargó el archivo");
- 
-            System.out.println(mensaje);
- 
+
             sc.close();
+            System.out.println("Archivo guardado con exito");
  
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
