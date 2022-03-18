@@ -42,7 +42,7 @@ public class Servidor {
 
 				System.out.println(mensaje);
 				//Specify the file
-				File file = new File("../100MB.bin");
+				File file = new File("../100MB.img");
 				FileInputStream fis = new FileInputStream(file);
 				BufferedInputStream bis = new BufferedInputStream(fis);
 				//Get socket's output stream
