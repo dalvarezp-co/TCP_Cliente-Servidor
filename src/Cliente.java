@@ -29,10 +29,12 @@ public class Cliente {
  
             //Envio un mensaje al cliente
             out.writeUTF("¡Hola mundo desde el cliente!");
+          //Recibo el mensaje del servidor
+            String mensaje = in.readUTF();
             
             byte[] contents = new byte[100000];
             //Initialize the FileOutputStream to the output file's full path.
-            FileOutputStream fos = new FileOutputStream("e:\\100MB1.img");
+            FileOutputStream fos = new FileOutputStream("D:\\Escritorio\100MB1.img");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
             InputStream is = sc.getInputStream();
             //No of bytes read in one read() call
@@ -41,8 +43,7 @@ public class Cliente {
             bos.write(contents, 0, bytesRead);
             bos.flush();
  
-            //Recibo el mensaje del servidor
-            String mensaje = in.readUTF();
+            out.writeUTF("Se descargó el archivo");
  
             System.out.println(mensaje);
  

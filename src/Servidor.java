@@ -36,6 +36,9 @@ public class Servidor {
 				System.out.println("Cliente conectado");
 				in = new DataInputStream(sc.getInputStream());
 				out = new DataOutputStream(sc.getOutputStream());
+				
+				//Le envio un mensaje
+				out.writeUTF("Hola mundo desde el servidor!");
 
 				//Leo el mensaje que me envia
 				String mensaje = in.readUTF();
@@ -66,8 +69,7 @@ public class Servidor {
 					System.out.print("Sending file ... "+(current*100)/fileLength+"% complete!");
 				}
 
-				//Le envio un mensaje
-				out.writeUTF("Hola mundo desde el servidor!");
+				
 				System.out.println("File sent succesfully!");
 
 				//Cierro el socket
