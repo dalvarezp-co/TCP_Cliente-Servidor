@@ -83,7 +83,7 @@ public class ServidoresDelegados extends Thread{
 				File file = new File(archivo);
 				FileInputStream fis = new FileInputStream(file);
 				BufferedInputStream bis = new BufferedInputStream(fis);
-				out.writeUTF(hash(file));
+				//out.writeUTF(hash(file));
 				//Get socket's output stream
 				OutputStream os = sc.getOutputStream();
 				//Read File Contents into contents array

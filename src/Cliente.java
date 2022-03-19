@@ -54,7 +54,7 @@ public class Cliente extends Thread{
             String mensaje = in.readUTF();
             System.out.println(mensaje);
             if(descarga.equals("Si")){
-            	String hash = in.readUTF();
+            	//String hash = in.readUTF();
             	byte[] contents = new byte[100000];
                 //Initialize the FileOutputStream to the output file's full path.
             	String pathDescarga="";
@@ -76,13 +76,13 @@ public class Cliente extends Thread{
 
                 sc.close();
                 System.out.println("Archivo guardado con exito para el cliente: "+id);
-                File fileDescargado = new File(pathDescarga);
-                String hashArchivo=hash(fileDescargado);
-                if(hash.equals(hashArchivo)){
-                	System.out.println("Archivo no modificado para el cliente: "+id);
-                } else {
-                	System.out.println("Archivo no modificado para el cliente: "+id);
-                }
+//                File fileDescargado = new File(pathDescarga);
+//                String hashArchivo=hash(fileDescargado);
+//                if(hash.equals(hashArchivo)){
+//                	System.out.println("Archivo no modificado para el cliente: "+id);
+//                } else {
+//                	System.out.println("Archivo no modificado para el cliente: "+id);
+//                }
                 
                 
             }
