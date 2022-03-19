@@ -42,7 +42,7 @@ public class Servidor {
 		}
 		int listosAEnviar=0;
 		while(listosAEnviar<numeroServidor){
-			System.out.println("Ya todos conectados así que se atiende al cliente: "+ numeroServidor);
+			System.out.println("Ya todos conectados asi que se atiende al cliente: "+ numeroServidor);
 			ServidoresDelegados thread= new ServidoresDelegados(sc[listosAEnviar], listosAEnviar);
 			thread.start();
 			listosAEnviar++;
