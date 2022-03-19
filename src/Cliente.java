@@ -51,7 +51,7 @@ public class Cliente extends Thread{
             if(descarga.equals("Si")){
             	byte[] contents = new byte[100000];
                 //Initialize the FileOutputStream to the output file's full path.
-                FileOutputStream fos = new FileOutputStream("D:\\Escritorio\100MB1.txt");
+                FileOutputStream fos = new FileOutputStream("data/archivosDescargados/100MB1.txt");
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 InputStream is = sc.getInputStream();
                 //No of bytes read in one read() call
