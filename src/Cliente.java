@@ -2,10 +2,15 @@
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,9 +54,16 @@ public class Cliente extends Thread{
             String mensaje = in.readUTF();
             System.out.println(mensaje);
             if(descarga.equals("Si")){
+            	String hash = in.readUTF();
             	byte[] contents = new byte[100000];
                 //Initialize the FileOutputStream to the output file's full path.
-                FileOutputStream fos = new FileOutputStream("data/archivosDescargados/100MB1.txt");
+            	String pathDescarga="";
+            	if(arch.contains("100")){
+            		pathDescarga="data/archivosDescargados/100MB"+id+".txt";
+            	} else {
+            		pathDescarga="data/archivosDescargados/250MB"+id+".txt";
+            	}
+            	FileOutputStream fos = new FileOutputStream(pathDescarga);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 InputStream is = sc.getInputStream();
                 //No of bytes read in one read() call
@@ -60,10 +72,19 @@ public class Cliente extends Thread{
                 bos.write(contents, 0, bytesRead);
                 bos.flush();
      
-                out.writeUTF("Se descargó el archivo");
+                out.writeUTF("Se descargo el archivo");
 
                 sc.close();
                 System.out.println("Archivo guardado con exito para el cliente: "+id);
+                File fileDescargado = new File(pathDescarga);
+                String hashArchivo=hash(fileDescargado);
+                if(hash.equals(hashArchivo)){
+                	System.out.println("Archivo no modificado para el cliente: "+id);
+                } else {
+                	System.out.println("Archivo no modificado para el cliente: "+id);
+                }
+                
+                
             }
             else {
             	System.out.println("Archivo no guardado para el cliente: "+id);
@@ -75,5 +96,22 @@ public class Cliente extends Thread{
         }
  
     }
+    
+    public String hash(File file){
+		byte[] bytes=null;
+		String hashFinal="";
+		try {
+			bytes = Files.readAllBytes(file.toPath());
+			MessageDigest md = MessageDigest.getInstance("SHA3-256");
+			byte[] result = md.digest(bytes);
+			hashFinal = new String(bytes, StandardCharsets.UTF_8);
+		} catch (IOException | NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hashFinal;
+		
+
+	}
  
 }

@@ -10,6 +10,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CyclicBarrier;
 
 
@@ -67,10 +71,10 @@ public class ServidoresDelegados extends Thread{
 
 			//Leo el mensaje que me envia
 			String mensaje = in.readUTF();
-			
+
 			//total+","+arch +","+descarga
 			String[] ms=mensaje.split(",");
-			
+
 			String archivo=ms[1];
 			String siDescarga=ms[2];
 
@@ -79,6 +83,7 @@ public class ServidoresDelegados extends Thread{
 				File file = new File(archivo);
 				FileInputStream fis = new FileInputStream(file);
 				BufferedInputStream bis = new BufferedInputStream(fis);
+				out.writeUTF(hash(file));
 				//Get socket's output stream
 				OutputStream os = sc.getOutputStream();
 				//Read File Contents into contents array
@@ -111,6 +116,23 @@ public class ServidoresDelegados extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+
+	}
+
+	public String hash(File file){
+		byte[] bytes=null;
+		String hashFinal="";
+		try {
+			bytes = Files.readAllBytes(file.toPath());
+			MessageDigest md = MessageDigest.getInstance("SHA3-256");
+			byte[] result = md.digest(bytes);
+			hashFinal = new String(bytes, StandardCharsets.UTF_8);
+		} catch (IOException | NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return hashFinal;
 		
 
 	}
