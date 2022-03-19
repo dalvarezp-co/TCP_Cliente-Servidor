@@ -64,15 +64,18 @@ public class ServidoresDelegados extends Thread{
 		//Le envio un mensaje
 		try {
 			out.writeUTF("Hola mundo desde el servidor no: "+id);
-			barrera.wait();
+			
 			//Leo el mensaje que me envia
 			String mensaje = in.readUTF();
 			
 			//total+","+arch +","+descarga
 			String[] ms=mensaje.split(",");
-			
+			int total= Integer.parseInt(ms[0]);
 			String archivo=ms[1];
-
+			while(Servidor.NumeroServidor<total){
+				barrera.wait();
+			}
+				
 			System.out.println(mensaje);
 			//Specify the file
 			File file = new File(archivo);

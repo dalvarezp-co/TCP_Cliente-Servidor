@@ -6,14 +6,14 @@ import java.util.logging.Logger;
 
 
 public class Servidor {
+	public static int NumeroServidor=0;
 
 	public static void main(String[] args) throws IOException {
 
 		ServerSocket servidor = null;
 		Socket sc = null;
-		int NumeroServidor=0;
+		
 		boolean seguir=true;
-
 		//puerto de nuestro servidor
 		final int PUERTO = 5000;
 
