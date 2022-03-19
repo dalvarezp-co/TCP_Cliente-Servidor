@@ -33,7 +33,7 @@ public class ServidoresDelegados extends Thread{
 	DataInputStream in;
 	DataOutputStream out;
 	/**
-	 * Barrera que va a permitir esperar a que todos estén conectados
+	 * Barrera que va a permitir esperar a que todos esten conectados
 	 */
 	private CyclicBarrier barrera;
 
