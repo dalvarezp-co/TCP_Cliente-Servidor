@@ -52,6 +52,9 @@ public class ServidoresDelegados extends Thread{
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		InputStreamReader in=new InputStreamReader(recibe);
+		entrada= new BufferedReader(in);
+		salida = new PrintWriter(saca, true);
 	}
 	public void run(){
 		System.out.println("Cliente conectado");
@@ -60,22 +63,17 @@ public class ServidoresDelegados extends Thread{
 
 		//Le envio un mensaje
 		try {
-			out.writeUTF("Hola clientes desde el servidor no: "+id + "Total:" + Servidor.NumeroServidor);
-			
+			out.writeUTF("Hola mundo desde el servidor no: "+id);
+
 			//Leo el mensaje que me envia
 			String mensaje = in.readUTF();
 			
 			//total+","+arch +","+descarga
 			String[] ms=mensaje.split(",");
-			int total= Integer.parseInt(ms[0]);
+			
 			String archivo=ms[1];
 
-			while(Servidor.NumeroServidor<total){
-				out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
-				barrera.wait();
-			}
-				
-			out.writeUTF(mensaje);
+			System.out.println(mensaje);
 			//Specify the file
 			File file = new File(archivo);
 			FileInputStream fis = new FileInputStream(file);
@@ -105,9 +103,6 @@ public class ServidoresDelegados extends Thread{
 			salida.close();
 			sc.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
