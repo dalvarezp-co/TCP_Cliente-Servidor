@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.CyclicBarrier;
 
 
 public class ServidoresDelegados extends Thread{
@@ -31,6 +32,10 @@ public class ServidoresDelegados extends Thread{
 	public int id;
 	DataInputStream in;
 	DataOutputStream out;
+	/**
+	 * Barrera que va a permitir esperar a que todos estén conectados
+	 */
+	private CyclicBarrier barrera;
 
 	/**
 	 * Metodo constructor que crea un servidor delegado dado una conexion con un cliente
@@ -59,6 +64,7 @@ public class ServidoresDelegados extends Thread{
 		//Le envio un mensaje
 		try {
 			out.writeUTF("Hola mundo desde el servidor no: "+id);
+			barrera.wait();
 			//Leo el mensaje que me envia
 			String mensaje = in.readUTF();
 			
@@ -97,6 +103,9 @@ public class ServidoresDelegados extends Thread{
 			salida.close();
 			sc.close();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

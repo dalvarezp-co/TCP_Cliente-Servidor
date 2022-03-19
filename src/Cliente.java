@@ -16,10 +16,6 @@ public class Cliente extends Thread{
 	public String arch;
 	public int total;
 	/**
-	 * Barrera que va a permitir esperar a que todos estén conectados
-	 */
-	private CyclicBarrier barrera;
-	/**
 	 * si descarga, no descarga
 	 */
 	public String descarga;
