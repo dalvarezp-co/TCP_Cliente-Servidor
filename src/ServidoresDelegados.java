@@ -54,7 +54,7 @@ public class ServidoresDelegados extends Thread{
 		}
 	}
 	public void run(){
-		System.out.println("Cliente "+id+" conectado");
+		System.out.println("Cliente conectado");
 		in = new DataInputStream(recibe);
 		out = new DataOutputStream(saca);
 
@@ -70,35 +70,37 @@ public class ServidoresDelegados extends Thread{
 			int total= Integer.parseInt(ms[0]);
 			String archivo=ms[1];
 
-			while(Servidor.NumeroServidor<total){
-				System.out.println("Cliente "+id+" esperando");
-				//out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
-				barrera.wait();
-				//out.writeUTF(mensaje);
-				//Specify the file
-				File file = new File(archivo);
-				FileInputStream fis = new FileInputStream(file);
-				BufferedInputStream bis = new BufferedInputStream(fis);
-				//Get socket's output stream
-				OutputStream os = sc.getOutputStream();
-				//Read File Contents into contents array
-				byte[] contents;
-				long fileLength = file.length();
-				long current = 0;
-				long start = System.nanoTime();
-				while(current!=fileLength){
-					int size = 100000;
-					if(fileLength - current >= size)
-						current += size;
-					else{
-						size = (int)(fileLength - current);
-						current = fileLength;
+			while(Servidor.NumeroServidor<=total){
+				out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
+				if(Servidor.NumeroServidor>=total){
+					//barrera.wait();
+					//out.writeUTF(mensaje);
+					//Specify the file
+					File file = new File(archivo);
+					FileInputStream fis = new FileInputStream(file);
+					BufferedInputStream bis = new BufferedInputStream(fis);
+					//Get socket's output stream
+					OutputStream os = sc.getOutputStream();
+					//Read File Contents into contents array
+					byte[] contents;
+					long fileLength = file.length();
+					long current = 0;
+					long start = System.nanoTime();
+					while(current!=fileLength){
+						int size = 100000;
+						if(fileLength - current >= size)
+							current += size;
+						else{
+							size = (int)(fileLength - current);
+							current = fileLength;
+						}
+						contents = new byte[size];
+						bis.read(contents, 0, size);
+						os.write(contents);
+						System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
 					}
-					contents = new byte[size];
-					bis.read(contents, 0, size);
-					os.write(contents);
-					System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
 				}
+				
 			}
 				
 			
@@ -107,9 +109,6 @@ public class ServidoresDelegados extends Thread{
 			salida.close();
 			sc.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
