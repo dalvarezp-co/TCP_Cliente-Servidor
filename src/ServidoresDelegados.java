@@ -98,7 +98,7 @@ public class ServidoresDelegados extends Thread{
 					contents = new byte[size];
 					bis.read(contents, 0, size);
 					os.write(contents);
-					System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
+					//System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
 				}
 				System.out.println("File sent succesfully!: " + id);
 			}
