@@ -70,12 +70,11 @@ public class ServidoresDelegados extends Thread{
 			int total= Integer.parseInt(ms[0]);
 			String archivo=ms[1];
 
-			while(Servidor.NumeroServidor<total){
-				out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
+			//while(Servidor.NumeroServidor<total){
+				//out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
 				//barrera.wait();
 				//out.writeUTF(mensaje);
-				}
-			if(Servidor.NumeroServidor>=total){
+				//}
 				
 				//Specify the file
 				File file = new File(archivo);
@@ -99,9 +98,7 @@ public class ServidoresDelegados extends Thread{
 					contents = new byte[size];
 					bis.read(contents, 0, size);
 					os.write(contents);
-					System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
-				}
-				
+					System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");	
 			}
 				
 			
