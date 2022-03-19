@@ -6,12 +6,32 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
  
-public class Cliente {
+public class Cliente extends Thread{
+	
+	public int id;
+	public String arch;
+	public int total;
+	/**
+	 * Barrera que va a permitir esperar a que todos estén conectados
+	 */
+	private CyclicBarrier barrera;
+	/**
+	 * si descarga, no descarga
+	 */
+	public String descarga;
+	
+	public Cliente(int id, String arch, String descarga, int total) {
+		this.id = id;
+		this.arch=arch;
+		this.descarga=descarga;
+		this.total=total;
+	}
  
-    public static void main(String[] args) {
+    public void run() {
  
         //Host del servidor
         final String HOST = "192.168.253.128";
@@ -27,8 +47,8 @@ public class Cliente {
             in = new DataInputStream(sc.getInputStream());
             out = new DataOutputStream(sc.getOutputStream());
  
-            //Envio un mensaje al cliente
-            out.writeUTF("¡Hola mundo desde el cliente!");
+            //Envio un mensaje al servidor
+            out.writeUTF(total+","+arch +","+descarga);
           //Recibo el mensaje del servidor
             String mensaje = in.readUTF();
             System.out.println(mensaje);
