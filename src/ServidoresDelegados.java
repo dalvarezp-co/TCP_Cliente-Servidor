@@ -72,33 +72,39 @@ public class ServidoresDelegados extends Thread{
 			String[] ms=mensaje.split(",");
 			
 			String archivo=ms[1];
+			String siDescarga=ms[2];
 
 			System.out.println(mensaje);
 			//Specify the file
-			File file = new File(archivo);
-			FileInputStream fis = new FileInputStream(file);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			//Get socket's output stream
-			OutputStream os = sc.getOutputStream();
-			//Read File Contents into contents array
-			byte[] contents;
-			long fileLength = file.length();
-			long current = 0;
-			long start = System.nanoTime();
-			while(current!=fileLength){
-				int size = 100000;
-				if(fileLength - current >= size)
-					current += size;
-				else{
-					size = (int)(fileLength - current);
-					current = fileLength;
+			if(siDescarga.equals("Si")){
+				File file = new File(archivo);
+				FileInputStream fis = new FileInputStream(file);
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				//Get socket's output stream
+				OutputStream os = sc.getOutputStream();
+				//Read File Contents into contents array
+				byte[] contents;
+				long fileLength = file.length();
+				long current = 0;
+				long start = System.nanoTime();
+				while(current!=fileLength){
+					int size = 100000;
+					if(fileLength - current >= size)
+						current += size;
+					else{
+						size = (int)(fileLength - current);
+						current = fileLength;
+					}
+					contents = new byte[size];
+					bis.read(contents, 0, size);
+					os.write(contents);
+					System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
 				}
-				contents = new byte[size];
-				bis.read(contents, 0, size);
-				os.write(contents);
-				System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
+				System.out.println("File sent succesfully!: " + id);
 			}
-			System.out.println("File sent succesfully!: " + id);
+			else {
+				System.out.println("No se descargó nada en el cliente:  " + id);
+			}
 			entrada.close();
 			salida.close();
 			sc.close();
