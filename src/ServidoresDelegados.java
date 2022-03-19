@@ -63,7 +63,7 @@ public class ServidoresDelegados extends Thread{
 
 		//Le envio un mensaje
 		try {
-			out.writeUTF("Hola clientes desde el servidor no: "+id);
+			out.writeUTF("Hola clientes desde el servidor no: "+id + "xd" + Servidor.NumeroServidor);
 			
 			//Leo el mensaje que me envia
 			String mensaje = in.readUTF();
@@ -72,6 +72,7 @@ public class ServidoresDelegados extends Thread{
 			String[] ms=mensaje.split(",");
 			int total= Integer.parseInt(ms[0]);
 			String archivo=ms[1];
+			in.close();
 			while(Servidor.NumeroServidor<total){
 				out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
 				barrera.wait();
