@@ -24,7 +24,7 @@ public class ServidoresDelegados extends Thread{
 	private OutputStream saca;
 	private PrintWriter salida;
 	/**
-	 * Conexión con el cliente
+	 * Conexion con el cliente
 	 */
 	private Socket sc;
 	public String mensajePedido;
@@ -33,7 +33,7 @@ public class ServidoresDelegados extends Thread{
 	DataOutputStream out;
 
 	/**
-	 * Método constructor que crea un servidor delegado dado una conexión con un cliente
+	 * Metodo constructor que crea un servidor delegado dado una conexion con un cliente
 	 */
 	public ServidoresDelegados(Socket clienteAtendiendo, int id){
 		this.id=id;
