@@ -33,6 +33,7 @@ public class Servidor {
 		numeroServidor=0;
 		//Se escuchan las peticiones de los clientes establecidos
 		while (numeroServidor<cantClientes) {
+			System.out.println("Entro el cliente: "+ numeroServidor);
 
 			//Espero a que un cliente se conecte
 			sc[numeroServidor] = servidor.accept();
@@ -41,12 +42,13 @@ public class Servidor {
 		}
 		int listosAEnviar=0;
 		while(listosAEnviar<numeroServidor){
+			System.out.println("Ya todos conectados así que se atiende al cliente: "+ numeroServidor);
 			ServidoresDelegados thread= new ServidoresDelegados(sc[listosAEnviar], listosAEnviar);
 			thread.start();
 			listosAEnviar++;
 		}
 		//Cierro el socket
-		servidor.accept();
+		servidor.close();
 		System.out.println("Cliente desconectado");
 	}
 
