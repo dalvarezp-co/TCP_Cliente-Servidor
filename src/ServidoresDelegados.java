@@ -63,7 +63,7 @@ public class ServidoresDelegados extends Thread{
 
 		//Le envio un mensaje
 		try {
-			out.writeUTF("Hola mundo desde el servidor no: "+id);
+			out.writeUTF("Hola clientes desde el servidor no: "+id);
 			
 			//Leo el mensaje que me envia
 			String mensaje = in.readUTF();
@@ -77,7 +77,7 @@ public class ServidoresDelegados extends Thread{
 				barrera.wait();
 			}
 				
-			System.out.println(mensaje);
+			out.writeUTF(mensaje);
 			//Specify the file
 			File file = new File(archivo);
 			FileInputStream fis = new FileInputStream(file);
