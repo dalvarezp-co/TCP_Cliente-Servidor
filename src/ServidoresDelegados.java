@@ -73,6 +73,7 @@ public class ServidoresDelegados extends Thread{
 			int total= Integer.parseInt(ms[0]);
 			String archivo=ms[1];
 			while(Servidor.NumeroServidor<total){
+				out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
 				barrera.wait();
 			}
 				
