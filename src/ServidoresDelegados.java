@@ -74,7 +74,6 @@ public class ServidoresDelegados extends Thread{
 			String archivo=ms[1];
 			String siDescarga=ms[2];
 
-			System.out.println(mensaje);
 			//Specify the file
 			if(siDescarga.equals("Si")){
 				File file = new File(archivo);
@@ -100,7 +99,7 @@ public class ServidoresDelegados extends Thread{
 					os.write(contents);
 					//System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
 				}
-				System.out.println("File sent succesfully!: " + id);
+				System.out.println("Archivo enviado con exito para el cliente: " + id);
 			}
 			else {
 				System.out.println("No se descargo nada en el cliente:  " + id);
