@@ -72,37 +72,38 @@ public class ServidoresDelegados extends Thread{
 			String[] ms=mensaje.split(",");
 			int total= Integer.parseInt(ms[0]);
 			String archivo=ms[1];
-			in.close();
+
 			while(Servidor.NumeroServidor<total){
 				out.writeUTF("Esperando a que se conecten todos los clientes, cliente: "+id);
 				barrera.wait();
+				out.writeUTF(mensaje);
+				//Specify the file
+				File file = new File(archivo);
+				FileInputStream fis = new FileInputStream(file);
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				//Get socket's output stream
+				OutputStream os = sc.getOutputStream();
+				//Read File Contents into contents array
+				byte[] contents;
+				long fileLength = file.length();
+				long current = 0;
+				long start = System.nanoTime();
+				while(current!=fileLength){
+					int size = 100000;
+					if(fileLength - current >= size)
+						current += size;
+					else{
+						size = (int)(fileLength - current);
+						current = fileLength;
+					}
+					contents = new byte[size];
+					bis.read(contents, 0, size);
+					os.write(contents);
+					System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
+				}
 			}
 				
-			out.writeUTF(mensaje);
-			//Specify the file
-			File file = new File(archivo);
-			FileInputStream fis = new FileInputStream(file);
-			BufferedInputStream bis = new BufferedInputStream(fis);
-			//Get socket's output stream
-			OutputStream os = sc.getOutputStream();
-			//Read File Contents into contents array
-			byte[] contents;
-			long fileLength = file.length();
-			long current = 0;
-			long start = System.nanoTime();
-			while(current!=fileLength){
-				int size = 100000;
-				if(fileLength - current >= size)
-					current += size;
-				else{
-					size = (int)(fileLength - current);
-					current = fileLength;
-				}
-				contents = new byte[size];
-				bis.read(contents, 0, size);
-				os.write(contents);
-				System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
-			}
+			
 			System.out.println("File sent succesfully!: " + id);
 			entrada.close();
 			salida.close();
