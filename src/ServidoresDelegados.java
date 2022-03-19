@@ -103,7 +103,7 @@ public class ServidoresDelegados extends Thread{
 				System.out.println("File sent succesfully!: " + id);
 			}
 			else {
-				System.out.println("No se descargó nada en el cliente:  " + id);
+				System.out.println("No se descargo nada en el cliente:  " + id);
 			}
 			entrada.close();
 			salida.close();
