@@ -83,7 +83,8 @@ public class ServidoresDelegados extends Thread{
 				File file = new File(archivo);
 				FileInputStream fis = new FileInputStream(file);
 				BufferedInputStream bis = new BufferedInputStream(fis);
-				//out.writeUTF(hash(file));
+				byte[] hashArch=hash(file);
+				sendBytes(hashArch, 0, hashArch.length, out);
 				//Get socket's output stream
 				OutputStream os = sc.getOutputStream();
 				//Read File Contents into contents array
@@ -120,20 +121,31 @@ public class ServidoresDelegados extends Thread{
 
 	}
 
-	public String hash(File file){
+	public byte[] hash(File file){
 		byte[] bytes=null;
-		String hashFinal="";
+		byte[] result = null;
 		try {
 			bytes = Files.readAllBytes(file.toPath());
 			MessageDigest md = MessageDigest.getInstance("SHA3-256");
-			byte[] result = md.digest(bytes);
-			hashFinal = new String(bytes, StandardCharsets.UTF_8);
+			result = md.digest(bytes);			
 		} catch (IOException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return hashFinal;
-		
+		return result;
 
+
+	}
+
+	public void sendBytes(byte[] myByteArray, int start, int len, DataOutputStream dos) throws IOException {
+		if (len < 0)
+			throw new IllegalArgumentException("Negative length not allowed");
+		if (start < 0 || start >= myByteArray.length)
+			throw new IndexOutOfBoundsException("Out of bounds: " + start);
+
+		dos.writeInt(len);
+		if (len > 0) {
+			dos.write(myByteArray, start, len);
+		}
 	}
 }

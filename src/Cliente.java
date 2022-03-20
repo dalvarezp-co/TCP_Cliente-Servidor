@@ -54,6 +54,8 @@ public class Cliente extends Thread{
             String mensaje = in.readUTF();
             System.out.println(mensaje);
             if(descarga.equals("Si")){
+            	byte[] hashRecibido=readBytes(in);
+            	System.out.println("Hash recibido para el cliente: "+id);
             	//String hash = in.readUTF();
             	byte[] contents = new byte[100000];
                 //Initialize the FileOutputStream to the output file's full path.
@@ -76,13 +78,14 @@ public class Cliente extends Thread{
 
                 sc.close();
                 System.out.println("Archivo guardado con exito para el cliente: "+id);
-//                File fileDescargado = new File(pathDescarga);
-//                String hashArchivo=hash(fileDescargado);
-//                if(hash.equals(hashArchivo)){
-//                	System.out.println("Archivo no modificado para el cliente: "+id);
-//                } else {
-//                	System.out.println("Archivo no modificado para el cliente: "+id);
-//                }
+                String hash=new String(hashRecibido, StandardCharsets.UTF_8);
+                File fileDescargado = new File(pathDescarga);
+                String hashArchivo=hash(fileDescargado);
+                if(hash.equals(hashArchivo)){
+                	System.out.println("Archivo no modificado para el cliente: "+id);
+                } else {
+                	System.out.println("Archivo no modificado para el cliente: "+id);
+                }
                 
                 
             }
@@ -113,5 +116,14 @@ public class Cliente extends Thread{
 		
 
 	}
+    
+    public byte[] readBytes(DataInputStream in) throws IOException {
+        int len = in.readInt();
+        byte[] data = new byte[len];
+        if (len > 0) {
+            in.readFully(data);
+        }
+        return data;
+    }
  
 }
