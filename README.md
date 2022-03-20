@@ -2,7 +2,7 @@
 Para ejecutar este modelo de Cliente-Servidor TCP lo que se debe realizar es:
 1. Instalar java en el Servidor FTP
 2. Clonar repositorio con github en el Servidor FTP
-3. En la carpeta TCP_Cliente-Servidor crear 2 archivos, uno de 100MB y otro de 250MB de la siguiente manera:
+3. En la carpeta TCP_Cliente-Servidor (En el servidor TCP Ubuntu) crear 2 archivos, uno de 100MB y otro de 250MB de la siguiente manera:
 dd if=/dev/zero of=./100MB.txt bs=1024 count=102400
 dd if=/dev/zero of=./250MB.txt bs=1024 count=256000
 4. Después de esto, ejecute el Servidor con el comando
