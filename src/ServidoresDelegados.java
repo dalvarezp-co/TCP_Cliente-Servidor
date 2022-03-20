@@ -126,7 +126,7 @@ public class ServidoresDelegados extends Thread{
 		byte[] result = null;
 		try {
 			bytes = Files.readAllBytes(file.toPath());
-			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			MessageDigest md = MessageDigest.getInstance("SHA-3");
 			result = md.digest(bytes);			
 		} catch (IOException | NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
