@@ -33,10 +33,9 @@ public class Servidor {
 		numeroServidor=0;
 		//Se escuchan las peticiones de los clientes establecidos
 		while (numeroServidor<cantClientes) {
-			System.out.println("Entro el cliente: "+ numeroServidor);
-
 			//Espero a que un cliente se conecte
 			sc[numeroServidor] = servidor.accept();
+			System.out.println("Entro el cliente: "+ numeroServidor);
 
 			numeroServidor++;
 		}

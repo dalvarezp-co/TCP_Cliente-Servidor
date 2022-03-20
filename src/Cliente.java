@@ -105,7 +105,7 @@ public class Cliente extends Thread{
 		String hashFinal="";
 		try {
 			bytes = Files.readAllBytes(file.toPath());
-			MessageDigest md = MessageDigest.getInstance("SHA3-256");
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
 			byte[] result = md.digest(bytes);
 			hashFinal = new String(bytes, StandardCharsets.UTF_8);
 		} catch (IOException | NoSuchAlgorithmException e) {
