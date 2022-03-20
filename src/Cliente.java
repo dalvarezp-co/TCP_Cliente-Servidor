@@ -1,5 +1,6 @@
 //Hola
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -48,6 +50,7 @@ public class Cliente extends Thread{
         DataOutputStream out;
  
         try {
+        	BufferedReader lector = new BufferedReader (new InputStreamReader (System.in));
         	String fechaHoy = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(Calendar.getInstance().getTime());
     		File archivoLog = new File("logs/" + fechaHoy + "-log.txt");
     		escritorParaLOG = new BufferedWriter(new FileWriter(archivoLog));
@@ -57,7 +60,6 @@ public class Cliente extends Thread{
  
             in = new DataInputStream(sc.getInputStream());
             out = new DataOutputStream(sc.getOutputStream());
- 
             //Envio un mensaje al servidor
             out.writeUTF(total+","+arch +","+descarga);
             long inicioEnvio = System.currentTimeMillis();
@@ -65,16 +67,15 @@ public class Cliente extends Thread{
             String mensaje = in.readUTF();
             System.out.println(mensaje);
             if(descarga.equals("Si")){
+            	System.out.println("Como cliente "+id+" voy a confirmar que estoy listo para recibir el archivo: 1. Si");
+        		String listo= lector.readLine();
+        		out.writeUTF(listo);
             	byte[] hashRecibido=readBytes(in);
             	System.out.println("Hash recibido para el cliente: "+id);
             	byte[] contents = new byte[100000];
                 //Initialize the FileOutputStream to the output file's full path.
             	String pathDescarga="";
-            	if(arch.contains("100")){
-            		pathDescarga="ArchivosRecibidos/100MB"+id+".txt";
-            	} else {
-            		pathDescarga="ArchivosRecibidos/250MB"+id+".txt";
-            	}
+            	pathDescarga="Cliente"+id+"-Prueba-"+total+".txt";
             	FileOutputStream fos = new FileOutputStream(pathDescarga);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 InputStream is = sc.getInputStream();

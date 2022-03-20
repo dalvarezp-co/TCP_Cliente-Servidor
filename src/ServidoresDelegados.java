@@ -80,6 +80,7 @@ public class ServidoresDelegados extends Thread{
 
 			//Specify the file
 			if(siDescarga.equals("Si")){
+				mensaje = in.readUTF();
 				File file = new File(archivo);
 				FileInputStream fis = new FileInputStream(file);
 				BufferedInputStream bis = new BufferedInputStream(fis);
