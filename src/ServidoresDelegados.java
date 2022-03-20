@@ -91,7 +91,6 @@ public class ServidoresDelegados extends Thread{
 				byte[] contents;
 				long fileLength = file.length();
 				long current = 0;
-				long start = System.nanoTime();
 				while(current!=fileLength){
 					int size = 100000;
 					if(fileLength - current >= size)

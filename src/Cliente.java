@@ -1,9 +1,11 @@
 //Hola
 import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
@@ -11,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.concurrent.CyclicBarrier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,6 +37,7 @@ public class Cliente extends Thread{
 	}
  
     public void run() {
+		
  
         //Host del servidor
         final String HOST = "192.168.253.128";
@@ -42,6 +47,10 @@ public class Cliente extends Thread{
         DataOutputStream out;
  
         try {
+        	String fechaHoy = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(Calendar.getInstance().getTime());
+    		File archivoLog = new File("logs/" + fechaHoy + "-log.txt");
+    		BufferedWriter escritorParaLOG = new BufferedWriter(new FileWriter(archivoLog));
+        	
             //Creo el socket para conectarme con el cliente
             Socket sc = new Socket(HOST, PUERTO);
  
@@ -50,13 +59,13 @@ public class Cliente extends Thread{
  
             //Envio un mensaje al servidor
             out.writeUTF(total+","+arch +","+descarga);
+            long inicioEnvio = System.currentTimeMillis();
           //Recibo el mensaje del servidor
             String mensaje = in.readUTF();
             System.out.println(mensaje);
             if(descarga.equals("Si")){
             	byte[] hashRecibido=readBytes(in);
             	System.out.println("Hash recibido para el cliente: "+id);
-            	//String hash = in.readUTF();
             	byte[] contents = new byte[100000];
                 //Initialize the FileOutputStream to the output file's full path.
             	String pathDescarga="";
@@ -73,6 +82,7 @@ public class Cliente extends Thread{
                 while((bytesRead=is.read(contents))!=-1)
                 bos.write(contents, 0, bytesRead);
                 bos.flush();
+                long finalDescarga = System.currentTimeMillis();
      
                 out.writeUTF("Se descargo el archivo");
 
@@ -81,16 +91,29 @@ public class Cliente extends Thread{
                 String hash=new String(hashRecibido, StandardCharsets.UTF_8);
                 File fileDescargado = new File(pathDescarga);
                 String hashArchivo=hash(fileDescargado);
+                String siModificado="";
                 if(hash.equals(hashArchivo)){
                 	System.out.println("Archivo no modificado para el cliente: "+id);
+                	siModificado="sin modificar";
                 } else {
                 	System.out.println("Archivo no modificado para el cliente: "+id);
+                	siModificado="modificado";
                 }
+                
+                escritorParaLOG.write("El cliente "+ id +" recibio el archivo: " 
+                + fileDescargado.getName() + " de tamano: " + fileDescargado.length() + " bytes, " +
+                		"con una entrega exitosa, "+ siModificado+" y con un tiempo de transferencia de: "
+                		+ (finalDescarga-inicioEnvio) + "milisegundos");
+                escritorParaLOG.newLine();
+                escritorParaLOG.flush();
                 
                 
             }
             else {
             	System.out.println("Archivo no guardado para el cliente: "+id);
+            	escritorParaLOG.write("El cliente "+ id +"no recibio el archivo");
+                        escritorParaLOG.newLine();
+                        escritorParaLOG.flush();
             }
             
  
