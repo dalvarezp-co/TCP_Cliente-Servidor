@@ -24,6 +24,7 @@ public class Cliente extends Thread{
 	public int id;
 	public String arch;
 	public int total;
+	private static BufferedWriter escritorParaLOG;
 	/**
 	 * si descarga, no descarga
 	 */
@@ -49,7 +50,7 @@ public class Cliente extends Thread{
         try {
         	String fechaHoy = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(Calendar.getInstance().getTime());
     		File archivoLog = new File("logs/" + fechaHoy + "-log.txt");
-    		BufferedWriter escritorParaLOG = new BufferedWriter(new FileWriter(archivoLog));
+    		escritorParaLOG = new BufferedWriter(new FileWriter(archivoLog));
         	
             //Creo el socket para conectarme con el cliente
             Socket sc = new Socket(HOST, PUERTO);
@@ -70,9 +71,9 @@ public class Cliente extends Thread{
                 //Initialize the FileOutputStream to the output file's full path.
             	String pathDescarga="";
             	if(arch.contains("100")){
-            		pathDescarga="data/archivosDescargados/100MB"+id+".txt";
+            		pathDescarga="ArchivosRecibidos/100MB"+id+".txt";
             	} else {
-            		pathDescarga="data/archivosDescargados/250MB"+id+".txt";
+            		pathDescarga="ArchivosRecibidos/250MB"+id+".txt";
             	}
             	FileOutputStream fos = new FileOutputStream(pathDescarga);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -103,7 +104,7 @@ public class Cliente extends Thread{
                 escritorParaLOG.write("El cliente "+ id +" recibio el archivo: " 
                 + fileDescargado.getName() + " de tamano: " + fileDescargado.length() + " bytes, " +
                 		"con una entrega exitosa, "+ siModificado+" y con un tiempo de transferencia de: "
-                		+ (finalDescarga-inicioEnvio) + "milisegundos");
+                		+ (finalDescarga-inicioEnvio) + " milisegundos");
                 escritorParaLOG.newLine();
                 escritorParaLOG.flush();
                 
@@ -111,7 +112,7 @@ public class Cliente extends Thread{
             }
             else {
             	System.out.println("Archivo no guardado para el cliente: "+id);
-            	escritorParaLOG.write("El cliente "+ id +"no recibio el archivo");
+            	escritorParaLOG.write("El cliente "+ id +" no recibio el archivo ya que no lo solicito");
                         escritorParaLOG.newLine();
                         escritorParaLOG.flush();
             }
