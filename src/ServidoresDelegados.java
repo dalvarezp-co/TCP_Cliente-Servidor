@@ -61,7 +61,7 @@ public class ServidoresDelegados extends Thread{
 		salida = new PrintWriter(saca, true);
 	}
 	public void run(){
-		System.out.println("Cliente conectado");
+		System.out.println("Cliente conectado: "+ id );
 		in = new DataInputStream(recibe);
 		out = new DataOutputStream(saca);
 
@@ -106,6 +106,7 @@ public class ServidoresDelegados extends Thread{
 					//System.out.println("Enviando archivo ... "+(current*100)/fileLength+"% complete!");
 				}
 				System.out.println("Archivo enviado con exito para el cliente: " + id);
+				System.out.println("Cliente desconectado: "+ id );
 			}
 			else {
 				System.out.println("No se descargo nada en el cliente:  " + id);

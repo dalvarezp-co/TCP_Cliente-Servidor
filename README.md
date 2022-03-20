@@ -13,6 +13,7 @@ java Servidor
 Cuántos clientes desea poner? (Poner los mismos del servidor)
 Que archivo desea escoger: 1. 100MB 2. 250MB
 Cuántos clientes desea que descarguen el archivo? (Cuántos clientes quiere enviarle el archivo en simultáneo)
-8. Después los archivos descargados saldrán en la carpeta ArchivosRecibidos y los log de esas transacciones en la carpeta logs
+8. Durante el proceso se le preguntará si los clientes están listos para recibir el archivo, dé un enter por cada cliente que puso que iba a descargar en simultáneo.
+9. Después los archivos descargados saldrán en la carpeta ArchivosRecibidos y los log de esas transacciones en la carpeta logs
 
 Muchas gracias :)

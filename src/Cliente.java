@@ -62,20 +62,20 @@ public class Cliente extends Thread{
             out = new DataOutputStream(sc.getOutputStream());
             //Envio un mensaje al servidor
             out.writeUTF(total+","+arch +","+descarga);
-            long inicioEnvio = System.currentTimeMillis();
           //Recibo el mensaje del servidor
             String mensaje = in.readUTF();
             System.out.println(mensaje);
             if(descarga.equals("Si")){
-            	System.out.println("Como cliente "+id+" voy a confirmar que estoy listo para recibir el archivo: 1. Si");
+            	Thread.sleep(100);
+            	System.out.println("Como cliente "+id+" voy a confirmar que estoy listo para recibir el archivo: Presione Enter");
         		String listo= lector.readLine();
         		out.writeUTF(listo);
+        		long inicioEnvio = System.currentTimeMillis();
             	byte[] hashRecibido=readBytes(in);
             	System.out.println("Hash recibido para el cliente: "+id);
             	byte[] contents = new byte[100000];
-                //Initialize the FileOutputStream to the output file's full path.
             	String pathDescarga="";
-            	pathDescarga="Cliente"+id+"-Prueba-"+total+".txt";
+            	pathDescarga="ArchivosRecibidos/Cliente"+id+"-Prueba-"+total+".txt";
             	FileOutputStream fos = new FileOutputStream(pathDescarga);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 InputStream is = sc.getInputStream();
@@ -119,7 +119,7 @@ public class Cliente extends Thread{
             }
             
  
-        } catch (IOException ex) {
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
  
