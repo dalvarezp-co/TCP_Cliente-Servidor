@@ -43,7 +43,7 @@ public class Cliente extends Thread{
 		
  
         //Host del servidor
-        final String HOST = "192.168.253.128";
+        final String HOST = "192.168.157.128";
         //Puerto del servidor
         final int PUERTO = 5000;
         DataInputStream in;

@@ -1,0 +1,25 @@
+El cliente 19 no recibio el archivo ya que no lo solicito
+El cliente 18 no recibio el archivo ya que no lo solicito
+El cliente 23 no recibio el archivo ya que no lo solicito
+El cliente 17 no recibio el archivo ya que no lo solicito
+El cliente 21 no recibio el archivo ya que no lo solicito
+El cliente 22 no recibio el archivo ya que no lo solicito
+El cliente 15 no recibio el archivo ya que no lo solicito
+El cliente 20 no recibio el archivo ya que no lo solicito
+El cliente 10 no recibio el archivo ya que no lo solicito
+El cliente 11 no recibio el archivo ya que no lo solicito
+El cliente 24 no recibio el archivo ya que no lo solicito
+El cliente 16 no recibio el archivo ya que no lo solicito
+El cliente 12 no recibio el archivo ya que no lo solicito
+El cliente 13 no recibio el archivo ya que no lo solicito
+El cliente 14 no recibio el archivo ya que no lo solicito
+El cliente 4 recibio el archivo: Cliente4-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 447 milisegundos
+El cliente 6 recibio el archivo: Cliente6-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 372 milisegundos
+El cliente 0 recibio el archivo: Cliente0-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 367 milisegundos
+El cliente 2 recibio el archivo: Cliente2-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 1208 milisegundos
+El cliente 5 recibio el archivo: Cliente5-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 1627 milisegundos
+El cliente 3 recibio el archivo: Cliente3-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 1885 milisegundos
+El cliente 8 recibio el archivo: Cliente8-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 2236 milisegundos
+El cliente 1 recibio el archivo: Cliente1-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 2288 milisegundos
+El cliente 7 recibio el archivo: Cliente7-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 2269 milisegundos
+El cliente 9 recibio el archivo: Cliente9-Prueba-25.txt de tamano: 26214400 bytes, con una entrega exitosa, sin modificar y con un tiempo de transferencia de: 2347 milisegundos
